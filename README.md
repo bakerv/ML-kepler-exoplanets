@@ -28,7 +28,7 @@ The numeric columns were scaled after splitting the data into training and valid
 
 [<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/data_leakage.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_1_false_flag_features_nn.ipynb)
 
- As seen in the above image, a model trained only on the false positive flags was able to achieve nearly perfect predictions after just one epoch. An indicator of poor data separation to be sure.
+ As seen in the above image, a model trained only on the false positive flags was able to achieve nearly perfect predictions after just one epoch. A sure indicator of poor separation between the training and testing data.
 
  ## Models
 The primary models used for these analysis were deep neural networks, consisting of a single
@@ -50,11 +50,13 @@ Overall, the deep neural network had better predictive accuracy. Random forest c
 
 [<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/final_acc_dnn.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_2_candidate_features_nn.ipynb)
 
-One instance of hyperparameter searching came in with a model of over 95% accuracy. While this model was saved at checkpoint, it was unstable, an not able to be reproduced from the specified hyperparameter configuration. 
+One instance of hyperparameter searching came in with a model of over 95% accuracy. While this model was saved at checkpoint, it was not able to be reproduced from the original hyperparameter configuration. 
 
 It is likely that more skilled tuning could result in better test accuracy from the neural network. In particular, learning rate schedulers and convolutional layers could be experimented with to reduce overfitting and improve feature detection. 
 
 Even though it was not the absolute best, the random forest model was quite good. An added benefit of the model is the ease of feature identification. 
+
+[<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/feature_table.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_3_random_forest.ipynb)
 
 Once the columns containing false postive flags are removed from the dataset, we see that the margin of error for several values is a better predictor than the value itself. In particular, uncertainty in the transit duration, stellar effective temperature, and planetary radius are strong predictive measures; along with the planetary radius itself. 
 

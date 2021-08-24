@@ -1,7 +1,7 @@
 # Machine Learning with Kepler Exoplanet Data
-This project uses machine learning to predict the classification of celestial objects from the Kepler Exoplant Search Results dataset. Pandas, scikit-learn, and TensorFlow libraries for python are used.
+This project uses machine learning to predict the classification of celestial objects from the Kepler Object of Interest (KOI) dataset. Pandas, scikit-learn, and TensorFlow libraries for python are used.
 
-[<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/kaggle_dataset.PNG">](https://www.kaggle.com/nasa/kepler-exoplanet-search-results)
+[<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/exoplanet_table.PNG">](https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=cumulative)
 
 
 ## Dataset
@@ -24,7 +24,7 @@ Additionally, individual planet IDs and dates of observation were removed from t
 
 The numeric columns were scaled after splitting the data into training and validation sets. The categorical labels were given a binary classification of zero or one. 
 
- Shortly after beginning training on the initial model, the need to remove false positive flags to prevent data leakage became apparent. 
+ Shortly after beginning training on the initial model, a data leak became apparent. This resulted in the need to remove data columns containing false positive test results.
 
 [<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/data_leakage.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_1_false_flag_features_nn.ipynb)
 
@@ -40,7 +40,7 @@ Hyperparameter tuning was carried out using [Hyperband](https://arxiv.org/abs/16
 
 As a counterpoint to the complexity of training a neural network, random forest was used to quickly create a high quality predictive model.
 
-[<img src="">](random_forest.ipynb)
+[<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/random_forest.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_3_random_forest.ipynb)
 
  Random forest was implemented with the sklearn library using three lines of code, and a minimum of parameter configuration.
 
@@ -48,7 +48,7 @@ As a counterpoint to the complexity of training a neural network, random forest 
 
 Overall, the deep neural network had better predictive accuracy. Random forest came in at 93%, while the dnn came in at 94.4%.
 
-[<img src="">](model_2.ipynb)
+[<img src="https://github.com/bakerv/ML-kepler-exoplanets/blob/main/images/final_acc_dnn.PNG">](https://github.com/bakerv/ML-kepler-exoplanets/blob/main/Model_2_candidate_features_nn.ipynb)
 
 One instance of hyperparameter searching came in with a model of over 95% accuracy. While this model was saved at checkpoint, it was unstable, an not able to be reproduced from the specified hyperparameter configuration. 
 
@@ -65,5 +65,5 @@ Once the columns containing false postive flags are removed from the dataset, we
 - “Kepler Space Telescope.” Wikipedia, Wikimedia Foundation, 19 Aug. 2021, en.wikipedia.org/wiki/Kepler_space_telescope. 
 - Li, Lisha, et al. “Hyperband: A NOVEL BANDIT-BASED Approach to Hyperparameter Optimization.” ArXiv.org, 18 June 2018, arxiv.org/abs/1603.06560. 
 - “NASA Exoplanet Archive.” NASA Exoplanet Archive, exoplanetarchive.ipac.caltech.edu/. 
-- Nasa. “Kepler Exoplanet Search Results.” Kaggle, 10 Oct. 2017, www.kaggle.com/nasa/kepler-exoplanet-search-results. 
+kepler-exoplanet-search-results. 
 - Team, Keras. “Keras Documentation: Kerastuner.” Keras, keras.io/keras_tuner/. 

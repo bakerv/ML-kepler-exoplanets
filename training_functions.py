@@ -12,9 +12,12 @@ class CustomHyperband(kt.Hyperband):
     
 def model_tuner(hyper_parameters):
     # tuning parameters
-    look_ahead_sync = hyperparameters.Choice('sync',
+    test_learning_rates = hyper_parameters.Choice('learning_rate',
+                                              values = [1e-1, 1e-2, 4e-2,
+                                                        5e-2, 1e-3, 1e-4])
+    look_ahead_sync = hyper_parameters.Choice('sync',
                                              values=[3,6,9])
-    look_ahead_step_size = hyperparameters.Choice('stepsize',
+    look_ahead_step_size = hyper_parameters.Choice('stepsize',
                                                   values = [0.1,0.3,
                                                             0.5,0.9])
     rectified_adam = tfa.optimizers.RectifiedAdam(
@@ -26,17 +29,15 @@ def model_tuner(hyper_parameters):
     dense_layer_1 = hyper_parameters.Choice('dense_1',
                                             values = [64, 128])
     drop_out_rate = hyper_parameters.Choice('dropout',
-                                            values= 0.4,0.5,0.6)
+                                            values= [0.4,0.5,0.6])
     dense_layer_2 = hyper_parameters.Choice('dense_2',
                                             values = [32, 64, 128, 
                                                       256, 320])
-    test_learning_rates = hyper_parameters.Choice('learning_rate',
-                                                  values = [1e-1, 1e-2, 4e-2,
-                                                            5e-2, 1e-3, 1e-4])
+
     
     model = tf.keras.models.Sequential([
-        tf.keras.layers.Dense(units = dense_layer_1, activation = mish, input_dim=33),
-        tf.keras.layers.Dropout(rate = drop_out_rate)
+        tf.keras.layers.Dense(units = dense_layer_1, activation = mish, input_dim=32),
+        tf.keras.layers.Dropout(rate = drop_out_rate),
         tf.keras.layers.Dense(units = dense_layer_2, activation = mish),
         tf.keras.layers.Dense(1, activation = 'sigmoid')
     ])

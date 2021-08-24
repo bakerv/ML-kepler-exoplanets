@@ -16,8 +16,7 @@ def model_tuner(hyper_parameters):
                                               values = [1e-1, 1e-2, 4e-2,
                                                         5e-2, 1e-3, 1e-4])
     # parameters for SGD
-    nesterov_condition = hyper_parameters.Choice('nesterov',
-                                                  values = [True, False])
+    nesterov_condition = hyper_parameters.Boolean(name= 'nesterov', default = True)
     test_momentum_rates = hyper_parameters.Choice('momentum',
                                                   values = [0.5, 0.6, 0.8,               
                                                             0.9, 0.95])
@@ -30,16 +29,17 @@ def model_tuner(hyper_parameters):
    # rectified_adam = tfa.optimizers.RectifiedAdam(
     #    learning_rate = test_learning_rates)
    # ranger = tfa.optimizers.Lookahead(rectified_adam,
-      #                                sync_period = look_ahead_sync,
+      #                                sync_period = look_ahead_sync,keras
       #                                slow_step_size = look_ahead_step_size)
     #mish = tfa.activations.mish
     dense_layer_1 = hyper_parameters.Choice('dense_1',
-                                            values = [64, 128])
+                                            values = [32, 64, 128,
+                                                      256, 512])
     drop_out_rate = hyper_parameters.Choice('dropout',
-                                            values= [0.4,0.5,0.6])
+                                            values= [0.0, 0.1, 0.2, 0.4 ,0.6, 0.8])
     dense_layer_2 = hyper_parameters.Choice('dense_2',
                                             values = [32, 64, 128, 
-                                                      256, 320])
+                                                      256, 512])
 
     
     model = tf.keras.models.Sequential([
@@ -51,9 +51,9 @@ def model_tuner(hyper_parameters):
     model.compile(
         optimizer = tf.keras.optimizers.SGD(learning_rate = test_learning_rates,
                                             momentum = test_momentum_rates,
-                                            nesterov = nesterov_condition),
-        loss = 'binary_crossentropy',
-        metrics = ['accuracy'])
+                                            nesterov = bool(nesterov_condition)),
+                                        loss = 'binary_crossentropy',
+                                        metrics = ['accuracy'])
     return model 
 
 def plot_training(model_history, measure):
